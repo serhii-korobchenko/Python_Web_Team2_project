@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add Birthday</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <main class="container">
+
+      <h3><mark> Enter birthday date for {{messages}}  </mark></h3>
+
+      <form method="POST" action="/birthday">
+
+
+
+<!--        <div style="padding: 10px">-->
+<!--          <label-->
+<!--            >Input name:-->
+<!--            <input type="text" name="name" required />-->
+<!--          </label>-->
+<!--        </div>-->
+
+        <div style="padding: 10px">
+          <label
+            >Birthday date:
+            <input type="date" name="birthday_date" required />
+          </label>
+        </div>
+
+        <div class="grid">
+          <button type="submit">Submit</button>
+          <button type="reset" class="secondary">Reset</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
