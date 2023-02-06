@@ -7,7 +7,8 @@ from datetime import datetime
 from logging import DEBUG
 
 app = Flask(__name__)
-app.secret_key = b'bbcec4566'
+app.secret_key = b'pythonwebteam4'
+
 app.debug = True
 app.env = "development"
 app.logger.setLevel(DEBUG)
