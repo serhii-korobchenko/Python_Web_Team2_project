@@ -70,7 +70,7 @@ def look_up_DB (text):
                             f'Looked up text was found in next statement: "{lookup_res}" in Note: "{db_session.query(Note.note_title).filter(Note.id == outer[1]).first()[0]}"')
 
                         flag_lookup = 1
-                        
+
                     else:
 
                         print(
@@ -84,8 +84,6 @@ def look_up_DB (text):
         print(f'Unfortunately, Nothing was found. Sorry!')
         flash(f'Unfortunately, Nothing was found. Sorry!')
 
-
-
 def findbytag_func_DB(tag):
 
     global flag_findtag
@@ -97,11 +95,9 @@ def findbytag_func_DB(tag):
         print(f'{tag} was found in note with title:{found_note}')
         flash(f'{tag} was found in note with title:{found_note}')
 
-
     else:
         print(f'Unfortunately, Nothing was found. Sorry!')
         flash(f'Unfortunately, Nothing was found. Sorry!')
-
 
 def add_records_DB(name, phone):
     phone1 = Phone(phone_name=phone)
