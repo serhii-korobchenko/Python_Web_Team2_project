@@ -566,7 +566,7 @@ def help_func():
     flash("\u0332".join('Bot understand next commands: '))
 
     for item in help_list:
-        flash(f'*      {item}')
+        flash(f'* {item}')
 
 
 def load_func():

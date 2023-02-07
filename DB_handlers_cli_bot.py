@@ -43,10 +43,14 @@ def look_up_DB (text):
     flag_lookup = 0
 
     query_list = [(Record.name, Record.id), (Record.created, Record.id), (Email.email_name, Email.rec_id),\
-                  (Adress.adress_name, Adress.rec_id), (Phone.phone_name, Phone.rec_id)]
+                  (Adress.adress_name, Adress.rec_id), (Phone.phone_name, Phone.rec_id),\
+                  (Note.note_title, Note.id), (Note.note_text, Note.id), (Note.created, Note.id)]
+
     for item in query_list:
 
+
         if db_session.query(item[0]).all():
+
 
             rec_id = db_session.query(item[1]).all()
 
@@ -59,12 +63,22 @@ def look_up_DB (text):
                     lookup_res = outer[0]
 
                 if lookup_res.lower().find(text.lower()) >= 0:
-                    print(
-                        f'Looked up text was found in next statement: "{lookup_res}" in record: "{db_session.query(Record.name).filter(Record.id == outer[1]).first()[0]}"')
-                    flash(
-                        f'Looked up text was found in next statement: "{lookup_res}" in record: "{db_session.query(Record.name).filter(Record.id == outer[1]).first()[0]}"')
+                    if item[1] == Note.id:
+                        print(
+                            f'Looked up text was found in next statement: "{lookup_res}" in Note: "{db_session.query(Note.note_title).filter(Note.id == outer[1]).first()[0]}"')
+                        flash(
+                            f'Looked up text was found in next statement: "{lookup_res}" in Note: "{db_session.query(Note.note_title).filter(Note.id == outer[1]).first()[0]}"')
 
-                    flag_lookup = 1
+                        flag_lookup = 1
+                        
+                    else:
+
+                        print(
+                            f'Looked up text was found in next statement: "{lookup_res}" in record: "{db_session.query(Record.name).filter(Record.id == outer[1]).first()[0]}"')
+                        flash(
+                            f'Looked up text was found in next statement: "{lookup_res}" in record: "{db_session.query(Record.name).filter(Record.id == outer[1]).first()[0]}"')
+
+                        flag_lookup = 1
 
     if flag_lookup == 0:
         print(f'Unfortunately, Nothing was found. Sorry!')
