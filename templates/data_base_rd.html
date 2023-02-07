@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Data_Base</title>
+    <title>Records_DB</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
@@ -34,7 +34,7 @@
                   {% for phone in item.phone%}
                       <ul>
                            <li>
-                               <h10 style="line-height:0%">-----------------{{phone}} </h10>
+                               <h10 style="line-height:0%">-----------------{{phone[0]}} </h10>
                            </li>
                        </ul>
                   {% endfor %}
@@ -42,7 +42,7 @@
                   {% for email in item.email%}
                       <ul>
                            <li>
-                               <h10 style="line-height:0%">-----------------{{email}} </h10>
+                               <h10 style="line-height:0%">-----------------{{email[0]}} </h10>
                            </li>
                        </ul>
                   {% endfor %}
@@ -50,7 +50,7 @@
                   {% for adress in item.adress%}
                       <ul>
                            <li>
-                               <h10 style="line-height:0%">-----------------{{adress}} </h10>
+                               <h10 style="line-height:0%">-----------------{{adress[0]}} </h10>
                            </li>
                        </ul>
                   {% endfor %}
@@ -58,7 +58,7 @@
                   {% for birthday in item.birthday%}
                       <ul>
                            <li>
-                               <h10 style="line-height:0%">-----------------{{birthday}} </h10>
+                               <h10 style="line-height:0%">-----------------{{birthday[0]}} </h10>
                            </li>
                        </ul>
                   {% endfor %}

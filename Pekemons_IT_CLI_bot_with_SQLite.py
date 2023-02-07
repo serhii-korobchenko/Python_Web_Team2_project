@@ -16,6 +16,9 @@
 #                           - "changeemail" name new_email - change all emails on new one
 #                           - "addadress' name text" - add adress to record
 #                           - "addbirthday' name" - add birthday to record
+# new                       - "findbytag' tag" - looking for note by tag
+# new                       - "delbirthday' name" - delete birthday from record
+# new                       - "daysbeforebirth" # days" - check birthdays in time period
 # new                       - "addnote' note_title text" - add note to DB
 # new                       - "delnote' note_title - del note from DB
 # new                       - "addtag' text note title " - add tag to Note
@@ -32,7 +35,7 @@ import csv
 from abc import abstractmethod, ABC
 import sqlalchemy
 from DB_handlers_cli_bot import *
-from models import Email, Record, Adress, Phone
+from models import Email, Record, Adress, Phone, Birthday
 from db import db_session
 from flask import flash
 
@@ -44,26 +47,28 @@ page = 1
 command_list = []
 
 help_information = ' Bot undestands next commands:\
-          - "hello" - answear: "How can I help you?"\
-          - "add" name telephone number" - save new contact\
-          - "change" name telephone number" - save new telephone number for existed contact\
-          - "phone" name" - show telephone number\
-          - "addnum" name telephone number" - add aditional tel number for certain contact\
-          - "del" name telephone number" - del tel number for certain contact\
-          - "help" - bot show commands explanations\
-          - "lookup" text" - find text in records (no difference which case of characters)\
-          - "delrec" name" - delete record from AddressBook\
-          - "addemail" name email" - add email to record\
-          - "changeemail" name new_email" - change all emails on new one\
-          - "addnotes" name text" - add notes to record\
-          - "addadress" name text" - add adress to record\
-          - "addbirthday" name" - add birthday to record \
-          - "daysbeforebirth" # days" - check birthdays in time period \
-          - "addnote title text" - add note to DB\
-          - "delnote title - del note from DB\
-          - "addtag text note_title " - add tag to Note\
-          - "deltag text" - del tag from DB\
-          - "good bye" or "close" or "exit" - bot stops work and messege "Good bye!" '
+          * "hello" - answear: "How can I help you?"\
+          * "add" name telephone number" - save new contact\
+          * "change" name telephone number" - save new telephone number for existed contact\
+          * "phone" name" - show telephone number\
+          * "addnum" name telephone number" - add aditional tel number for certain contact\
+          * "del" name telephone number" - del tel number for certain contact\
+          * "help" - bot show commands explanations\
+          * "lookup" text" - find text in records (no difference which case of characters)\
+          * "delrec" name" - delete record from AddressBook\
+          * "addemail" name email" - add email to record\
+          * "changeemail" name new_email" - change all emails on new one\
+          * "addnotes" name text" - add notes to record\
+          * "addadress" name text" - add adress to record\
+          * "addbirthday" name" - add birthday to record \
+          * "delbirthday" name" - delete birthday from record\
+          * "findbytag" tag" - looking for note by tag\
+          * "daysbeforebirth" # days" - check birthdays in time period \
+          * "addnote title text" - add note to DB\
+          * "delnote title - del note from DB\
+          * "addtag text note_title " - add tag to Note\
+          * "deltag text" - del tag from DB\
+          * "good bye" or "close" or "exit" - bot stops work and messege "Good bye!" '
 
 
 class AddressBook (UserDict):
@@ -390,7 +395,17 @@ def command_parser(command):  # command`s parser
 
 
 
-# Decorator
+# Decorators
+def show_error(func):  # decorator
+    def inner(*args, **kwargs):
+        try:
+            func(*args, **kwargs)
+        except Exception as e:
+            flash('Unfortunately you could not do it. Because:')
+            flash(e.args[0])
+
+    return inner
+
 def input_error(func):  # decorator
 
     def inner(*args, **kwargs):
@@ -545,12 +560,13 @@ def del_func(name, phone):  # 1&2
         TryAgainError.status = 1
 
 
-
-
-
 def help_func():
-    print(help_information)
-    flash(help_information)
+
+    help_list = help_information.split('*')[1:]
+    flash("\u0332".join('Bot understand next commands: '))
+
+    for item in help_list:
+        flash(f'*      {item}')
 
 
 def load_func():
@@ -576,32 +592,51 @@ def load_func():
         print(
             "File not found! Please, make sure file is exist or name was written correctly!")
 
+@show_error
 def lookup_func(text):
     look_up_DB (text)
 
 
+@show_error
 def birthdaylook_func(number_days):
     birthday_in_days(number_days)
 
+@show_error
 def addnote_func(title, text):
     addnote_func_DB(title, text)
     print('Note has been added successfully!')
     flash('Note has been added successfully!')
 
+@show_error
 def delnote_func(title):
     delnote_func_DB(title)
     print('Note has been deleted successfully!')
     flash('Note has been deleted successfully!')
 
+@show_error
+def addtag_func(tag_text, note):
+    addtag_func_DB(tag_text, note)
+    print('Tag has been added successfully!')
+    flash('Tag has been added successfully!')
 
-def addtag_func(name, note):
-    pass
+@show_error
+def deltag_func(tag_text):
+    deltag_func_DB(tag_text)
+    print('Tag has been deleted successfully!')
+    flash('Tag has been deleted successfully!')
 
-def deltag_func(name):
-    pass
+@show_error
+def delbirthday_func(name):
+    delbirthday_func_DB(name)
+    print('Birthday has been deleted successfully!')
+    flash('Birthday has been deleted successfully!')
+
+@show_error
+def findbytag_func(tag):
+    findbytag_func_DB(tag)
 
 
-        
+
 @input_error
 def del_record_hand(name):  # ---- !!!!!
     try:
@@ -706,7 +741,8 @@ def main(command):
                      'close': good_buy_func, 'exit': good_buy_func, 'addnum': addnum_func, 'del': del_func,
                       'help': help_func, 'lookup': lookup_func,
                      'addnote': addnote_func, 'delnote': delnote_func,
-                     'addtag': addtag_func, 'deltag': deltag_func,
+                     'addtag': addtag_func, 'deltag': deltag_func, 'delbirthday': delbirthday_func,
+                     'findbytag': findbytag_func,
 
                      'delrec': del_record_hand, 'addemail': add_email_head, 'addadress': add_adress_head,
                      'changeemail': change_email_head, 'daysbeforebirth':birthdaylook_func

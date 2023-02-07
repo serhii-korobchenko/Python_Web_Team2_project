@@ -70,6 +70,25 @@ def look_up_DB (text):
         print(f'Unfortunately, Nothing was found. Sorry!')
         flash(f'Unfortunately, Nothing was found. Sorry!')
 
+
+
+def findbytag_func_DB(tag):
+
+    global flag_findtag
+    flag_findtag = 0
+    noteid_bytag = db_session.query(Tag.note_id).filter(Tag.tag_text == tag)
+    found_note = db_session.query(Note.note_title).filter(Note.id == noteid_bytag).first()[0]
+
+    if found_note:
+        print(f'{tag} was found in note with title:{found_note}')
+        flash(f'{tag} was found in note with title:{found_note}')
+
+
+    else:
+        print(f'Unfortunately, Nothing was found. Sorry!')
+        flash(f'Unfortunately, Nothing was found. Sorry!')
+
+
 def add_records_DB(name, phone):
     phone1 = Phone(phone_name=phone)
     rec1 = Record(name=name, phones=[phone1])
@@ -100,6 +119,7 @@ def del_rec_DB(name):
     db_session.query(Phone).filter(Phone.rec_id==rec_id).delete()
     db_session.query(Email).filter(Email.rec_id == rec_id).delete()
     db_session.query(Adress).filter(Adress.rec_id == rec_id).delete()
+    db_session.query(Birthday).filter(Birthday.rec_id == rec_id).delete()
     db_session.query(Record).filter(Record.name == name).delete()
     db_session.commit()
 
@@ -128,21 +148,10 @@ def change_adress_DB(name, new_adress):
     db_session.commit()
 
 
-def addnote_func_DB(title, text):
-    note1 = Note(note_title=title, note_text=text)
-    db_session.add(note1)
+def delbirthday_func_DB(name):
+    birthday1 = db_session.query(Birthday).filter(Birthday.rec_id==str(db_session.query(Record.id).filter(Record.name == name).first()[0]))
+    birthday1.delete()
     db_session.commit()
-
-def delnote_func_DB(title):
-    note1 = db_session.query(Note).filter(Note.note_title == title)
-    note1.delete()
-    db_session.commit()
-
-
-
-
-
-
 
 
 def addnote_func_DB(title, text):
@@ -151,19 +160,24 @@ def addnote_func_DB(title, text):
     db_session.commit()
 
 def delnote_func_DB(title):
+    note_id = str(db_session.query(Note.id).filter(Note.note_title == title).one()[0])
     note1 = db_session.query(Note).filter(Note.note_title == title)
+    db_session.query(Tag).filter(Tag.note_id == note_id).delete()
     note1.delete()
     db_session.commit()
 
+def addtag_func_DB(tag_text, note):
+    note_id = db_session.query(Note.id).filter(Note.note_title == note).first()[0]
+    tag1 = Tag(tag_text=tag_text, note_id=str(note_id))
 
 
+    db_session.add(tag1)
+    db_session.commit()
 
-
-
-
-
-
-
+def deltag_func_DB(tag_text):
+    tag1 = db_session.query(Tag).filter(Tag.tag_text == tag_text)
+    tag1.delete()
+    db_session.commit()
 
 def load_DB():
     records_DB = db_session.query(Record).all()

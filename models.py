@@ -23,7 +23,7 @@ class Record(Base):
     emails = relationship("Email", cascade="all, delete", backref="records")
     adresses = relationship("Adress", cascade="all, delete",  backref="records")
     phones = relationship("Phone", cascade="all, delete",  backref="records")
-    birthday = relationship("Birthday", cascade="all, delete",  backref="records")
+    birthdays = relationship("Birthday", cascade="all, delete",  backref="records")
     #phones = relationship("Phone",  secondary=record_m2m_phone, cascade="all, delete", backref="records")
 
 # Таблица Email
@@ -45,16 +45,14 @@ class Phone(Base):
     __tablename__ = "phones"
     id = Column(Integer, primary_key=True)
     phone_name = Column(String(20), nullable=True)
-    rec_id = Column(Integer, ForeignKey("records.id", ondelete="cascade"))
+    rec_id = Column(Integer, ForeignKey("records.id", ondelete="CASCADE"))
 
 
 class Birthday(Base):
-    __tablename__ = "birthday"
+    __tablename__ = "birthdays"
     id = Column(Integer, primary_key=True)
     birthday_date = Column('birthday_date', DateTime, default=datetime.now())
-    rec_id = Column(Integer, ForeignKey("records.id", ondelete="cascade"))
-
-
+    rec_id = Column(Integer, ForeignKey("records.id", ondelete="CASCADE"))
 
 
 

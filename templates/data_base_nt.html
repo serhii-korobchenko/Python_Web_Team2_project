@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Notes_DB</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+  </head>
+  <body>
+    <main class="container">
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+      >
+        <ul>
+          <li><a href="/" role="button">Go Home</a></li>
+
+        </ul>
+      </nav>
+
+      <h3><u> List of existed notes extracted from DB: </u></h3>
+
+      {% for item in notes_list%}
+          <ul>
+              <li>
+                  <h6 style="line-height:0%"> Note # {{item.note_id}}. <mark>{{item.note_title}}</mark>  </h6>
+                  <h6 style="line-height:0%"> Note text: <mark>{{item.note_text}}</mark>   Note created: <mark>{{item.created}}</mark>     </h6>
+                  <h7 style="line-height:0%"> <u>Tags</u> : </h7>
+                  {% for tag in item.tags%}
+                      <ul>
+                           <li>
+                               <h10 style="line-height:0%">-----------------{{tag[0]}} </h10>
+                           </li>
+                       </ul>
+                  {% endfor %}
+              </li>
+          </ul>
+      {% endfor %}
+    </main>
+  </body>
+</html>
