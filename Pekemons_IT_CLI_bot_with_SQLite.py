@@ -788,10 +788,8 @@ def main(command):
         print('Unsuccessful operation. Please, try again')
         flash('Unsuccessful operation. Please, try again')
 
-
     except EOFError as e:
         print(e)
-
 
 if __name__ == '__main__':
     main()
