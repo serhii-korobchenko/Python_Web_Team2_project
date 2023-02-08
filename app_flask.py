@@ -86,6 +86,7 @@ def add_birthday():
 
         return redirect("/")
 
+    db_session.close()
     return render_template("add_birthday.html", messages=messages)
 
 @app.route("/records_DB/", methods=["GET"], strict_slashes=False)
@@ -105,6 +106,7 @@ def data_base_rec():
         item_rec.record_id = record_id
         record_list.append(item_rec)
 
+    db_session.close()
     return render_template("data_base_rd.html", records=records, phones=phones, record_list=record_list)
 
 @app.route("/notes_DB/", methods=["GET"], strict_slashes=False)
@@ -121,6 +123,7 @@ def data_base_notes():
 
         notes_list.append(item_note)
 
+    db_session.close()
     return render_template("data_base_nt.html",  notes_list=notes_list)
 
 
