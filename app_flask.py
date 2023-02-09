@@ -1,10 +1,11 @@
 
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, flash, make_response
 from models import Email, Record, Adress, Phone, Birthday, Note, Tag
 from db import db_session
 from Pekemons_IT_CLI_bot_with_SQLite import main, help_information
 from datetime import datetime
 from logging import DEBUG
+import users
 
 app = Flask(__name__)
 app.secret_key = b'pythonwebteam4'
@@ -30,8 +31,30 @@ class Note_Object:
         self.tags = tags
 
 
-@app.route("/", methods=['GET', 'POST'], strict_slashes=False)
+@app.before_request
+def before_func():
+    auth = True if 'username' in session else False
+    if not auth:
+        token_user = request.cookies.get('username')
+        if token_user:
+            user = users.get_user_by_token(token_user)
+            if user:
+                session['username'] = {"username": user.username, "id": user.id}
+
+
+@app.route('/healthcheck/', strict_slashes=False)
+def healthcheck():
+    return 'I am working'
+
+
+@app.route('/', strict_slashes=False)
 def index():
+    auth = True if 'username' in session else False
+    return render_template('index.html', title='Future is near!', auth=auth)
+
+
+@app.route("/bot/", methods=['GET', 'POST'], strict_slashes=False)
+def bot():
 
     command = None
 
@@ -47,9 +70,9 @@ def index():
         else:
             main(command)
 
-        return redirect("/")
+        return redirect(url_for('bot'))
 
-    return render_template("index.html", help_information=help_information)
+    return render_template("bot.html", help_information=help_information)
 
 @app.route("/birthday/", methods=["GET", "POST"], strict_slashes=False)
 def add_birthday():
@@ -82,7 +105,7 @@ def add_birthday():
             # flash (e.args)
             flash('Record with mentioned name does not exist. Try again!')
 
-        return redirect("/")
+        return redirect("/bot/")
 
     db_session.close()
     return render_template("add_birthday.html", messages=messages)

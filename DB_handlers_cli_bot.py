@@ -2,7 +2,7 @@ from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import sessionmaker, joinedload
 from sqlalchemy.sql.operators import contains
 
-from models import Email, Record, Adress, Phone, Birthday, Note, Tag
+from models import Email, Record, Adress, Phone, Birthday, Note, Tag, User
 from sqlalchemy import and_, delete
 from sqlalchemy.schema import MetaData
 from sqlalchemy import or_
