@@ -73,8 +73,6 @@ def add_birthday():
                 birthday1 = Birthday(birthday_date=birthday_date,
                                     rec_id=str(db_session.query(Record.id).filter(Record.name == name).first()[0]))
 
-
-
                 db_session.add(birthday1)
                 db_session.commit()
                 print('Birthday has been added successfully!')
