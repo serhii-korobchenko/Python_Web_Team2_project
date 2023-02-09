@@ -6,6 +6,9 @@ from Pekemons_IT_CLI_bot_with_SQLite import main, help_information
 from datetime import datetime
 from logging import DEBUG
 
+from libs.validation_file import allowed_file
+from werkzeug.utils import secure_filename
+
 app = Flask(__name__)
 app.secret_key = b'pythonwebteam4'
 
