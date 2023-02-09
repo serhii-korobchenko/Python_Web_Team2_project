@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<main class="container">
+
+  {% if auth %}
+
+      <link
+          rel="stylesheet"
+          href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+        />
+
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+      >
+        <ul>
+          <li><a href="/records_DB/" role="button">See Records DataBase</a></li>
+          <li><a href="/notes_DB/" role="button">See Notes DataBase</a></li>
+        </ul>
+      </nav>
+
+      <h3><mark>CLI bot is working. Hi there!</mark></h3>
+      <marquee behavior="scroll" direction="left">{{help_information}} </marquee>
+
+
+      <form method="POST" action="/">
+        <div style="padding: 10px">
+          <label
+            >Put command here:
+            <input type="text" name="command" required />
+          </label>
+        </div>
+
+        <div class="grid">
+          <button type="submit">Submit</button>
+          <button type="reset" class="secondary">Reset</button>
+        </div>
+      </form>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+  {% else %}
+
+    <div class="container">
+    <h1>{{title}}</h1>
+      <p
+        class="d-flex flex-column align-items-center justify-content-center bg-secondary"
+        style="height: 155px"
+      >
+        Welcome!
+      </p>
+    </div>
+
+  {% endif %}
+
+
+</main>
+
+{% endblock %}
+

@@ -6,6 +6,13 @@ from Pekemons_IT_CLI_bot_with_SQLite import main, help_information
 from datetime import datetime
 from logging import DEBUG
 import users
+from libs.validation_schemas import LoginSchema, RegistrationSchema
+from marshmallow import ValidationError
+from sqlalchemy.exc import IntegrityError
+import uuid
+from datetime import datetime, timedelta
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.secret_key = b'pythonwebteam4'
@@ -13,6 +20,9 @@ app.secret_key = b'pythonwebteam4'
 app.debug = True
 app.env = "development"
 app.logger.setLevel(DEBUG)
+# db = SQLAlchemy(app)
+# migrate = Migrate(app, db)
+
 
 class Record_Object:
 
@@ -46,16 +56,16 @@ def before_func():
 def healthcheck():
     return 'I am working'
 
+#
+# @app.route('/', strict_slashes=False)
+# def index():
+#     auth = True if 'username' in session else False
+#     return render_template('index.html', title='Future is near!', auth=auth)
 
-@app.route('/', strict_slashes=False)
-def index():
-    auth = True if 'username' in session else False
-    return render_template('index.html', title='Future is near!', auth=auth)
 
-
-@app.route("/bot/", methods=['GET', 'POST'], strict_slashes=False)
+@app.route("/", methods=['GET', 'POST'], strict_slashes=False)
 def bot():
-
+    auth = True if 'username' in session else False
     command = None
 
     if request.method == "POST":
@@ -72,7 +82,76 @@ def bot():
 
         return redirect(url_for('bot'))
 
-    return render_template("bot.html", help_information=help_information)
+    return render_template("bot1.html", help_information=help_information, auth=auth, title='Please sign in!')
+
+
+@app.route('/registration/', methods=['GET', 'POST'], strict_slashes=False)
+def registration():
+    auth = True if 'username' in session else False
+    if auth:
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        try:
+            RegistrationSchema().load(request.form)
+        except ValidationError as err:
+            return render_template('registration.html', messages=err.messages)
+        email = request.form.get('email')
+        password = request.form.get('password')
+        nick = request.form.get('nick')
+        try:
+            user = users.create_user(email, password, nick)
+            print(user)
+            return redirect(url_for('login'))
+        except IntegrityError as err:
+            print(err)
+            return render_template('registration.html', messages={'error': f'User with email {email} exist!'})
+
+    return render_template('registration.html')
+
+@app.route('/login/', methods=['GET', 'POST'], strict_slashes=False)
+def login():
+    auth = True if 'username' in session else False
+    if request.method == 'POST':
+        try:
+            LoginSchema().load(request.form)
+        except ValidationError as err:
+            return render_template('login.html', messages=err.messages)
+
+        email = request.form.get('email')
+        password = request.form.get('password')
+        remember = True if request.form.get('remember') == 'on' else False
+
+        user = users.login(email, password)
+        if user is None:
+            return render_template('login.html', messages={'err': 'Invalid credentials! Goto admin bro :)'})
+        session['username'] = {"username": user.username, "id": user.id}
+        response = make_response(redirect(url_for('bot')))
+        if remember:
+            # Треба створить token, та покласти його в cookie та БД
+            token = str(uuid.uuid4())
+            expire_data = datetime.now() + timedelta(days=60)
+            response.set_cookie('username', token, expires=expire_data)
+            users.set_token(user, token)
+
+        return response
+    if auth:
+        return redirect(url_for('bot'))
+    else:
+        return render_template('login.html')
+
+
+@app.route('/logout/', strict_slashes=False)
+def logout():
+    auth = True if 'username' in session else False
+    if not auth:
+        return redirect(request.url)  # Відправляє туди звідки він прийшов
+    session.pop('username')
+    response = make_response(redirect(url_for('bot')))
+    response.set_cookie('username', '', expires=-1)
+
+    return response
+
 
 @app.route("/birthday/", methods=["GET", "POST"], strict_slashes=False)
 def add_birthday():
@@ -105,7 +184,7 @@ def add_birthday():
             # flash (e.args)
             flash('Record with mentioned name does not exist. Try again!')
 
-        return redirect("/bot/")
+        return redirect("/")
 
     db_session.close()
     return render_template("add_birthday.html", messages=messages)
