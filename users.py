@@ -9,7 +9,7 @@ def create_user(email, password, nick):
     user = models.User(username=nick, email=email, hash=hash)
     db_session.add(user)
     db_session.commit()
-    db_session.close()
+
     return user
 
 

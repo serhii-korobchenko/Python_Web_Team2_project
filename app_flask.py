@@ -82,14 +82,22 @@ def bot():
 
         return redirect(url_for('bot'))
 
-    return render_template("bot1.html", help_information=help_information, auth=auth, title='Please sign in!')
+    if auth:
+        values = list(session.values())
+        username_session = values[-1]["username"]
+
+
+        return render_template("bot1.html", help_information=help_information, auth=auth, title='Please sign in!', username_session = username_session)
+    else:
+        return render_template("bot1.html", help_information=help_information, auth=auth, title='Please sign in!')
+
 
 
 @app.route('/registration/', methods=['GET', 'POST'], strict_slashes=False)
 def registration():
     auth = True if 'username' in session else False
     if auth:
-        return redirect(url_for('index'))
+        return redirect(url_for('bot'))
 
     if request.method == 'POST':
         try:
