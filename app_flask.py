@@ -126,7 +126,25 @@ def data_base_notes():
     db_session.close()
     return render_template("data_base_nt.html",  notes_list=notes_list)
 
-
+@app.route("/pictures/upload/", methods=["GET", "POST"], strict_slashes=False)
+def upload_pic():
+    if request.method == 'POST':
+        description = request.form.get('description')
+        if 'photo' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['photo']
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file_path = pathlib.Path(app.config['UPLOAD_FOLDER']) / filename
+            file.save(file_path)
+            pics.upload_file_for_user(session['username']['id'], file_path, description)
+            flash('Uploaded successfully!')
+            return redirect(url_for('pictures_upload'))
+    return render_template("upload_pic.html")
 
 if __name__ == "__main__":
     app.run()
