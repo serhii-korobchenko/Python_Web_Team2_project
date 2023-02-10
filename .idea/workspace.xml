@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bda87bcd-fa05-4b7f-8d8f-92296b476df3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/bot.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/layout.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,9 +110,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.app_flask" />
         <item itemvalue="Python.models" />
         <item itemvalue="Python.env" />
-        <item itemvalue="Python.app_flask" />
         <item itemvalue="Python.app_flask" />
         <item itemvalue="Python.env" />
       </list>
