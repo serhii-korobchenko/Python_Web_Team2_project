@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>CLI-bot</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
-    />
-  </head>
-  <body>
-    <main class="container">
+{% extends "base.html" %}
+
+{% block content %}
+
+<main class="container">
+
+  {% if auth %}
+
+      <link
+          rel="stylesheet"
+          href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+        />
 
       <nav
         style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
@@ -37,7 +37,26 @@
           <button type="reset" class="secondary">Reset</button>
         </div>
       </form>
-      {% extends "layout.html" %}
-    </main>
-  </body>
-</html>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class=flashes>
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+  {% else %}
+
+    <div class="container">
+        <h1>{{title}}</h1>
+    </div>
+
+  {% endif %}
+
+
+</main>
+
+{% endblock %}
+

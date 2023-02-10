@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String, Boolean, DateTime
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey, Table
 
+
 from db import Base, engine, db_session
 
 #таблица для связи many-to-many между таблицами records и email
@@ -14,6 +15,21 @@ record_m2m_phone = Table(
     Column("phone", Integer, ForeignKey("phones.id")),
 )
 
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    username = Column(String(120), nullable=False)
+    email = Column(String(120), unique=True, nullable=False)
+    hash = Column(String(255), nullable=False)
+    token_cookie = Column(String(255), nullable=True, default=None)
+    # records = relationship('Record', back_populates='user')
+    # notes = relationship('Note', back_populates='user')
+    # isDeleted = default False
+
+    def __repr__(self):
+        return f"User({self.id}, {self.username}, {self.email})"
+
+
 # Таблица Record
 class Record(Base):
     __tablename__ = "records"
@@ -24,6 +40,8 @@ class Record(Base):
     adresses = relationship("Adress", cascade="all, delete",  backref="records")
     phones = relationship("Phone", cascade="all, delete",  backref="records")
     birthdays = relationship("Birthday", cascade="all, delete",  backref="records")
+    # user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    # user = relationship('User', cascade='all, delete', back_populates='records')
     #phones = relationship("Phone",  secondary=record_m2m_phone, cascade="all, delete", backref="records")
 
 # Таблица Email
@@ -63,6 +81,8 @@ class Note(Base):
     note_text = Column(String(250), nullable=False, unique=True)
     created = Column(DateTime, default=datetime.now())
     tags = relationship("Tag", cascade="all, delete",  backref="notes")
+    # user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    # user = relationship('User', cascade='all, delete', back_populates='notes')
 
 class Tag(Base):
     __tablename__ = "tags"

@@ -2,7 +2,7 @@ from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import sessionmaker, joinedload
 from sqlalchemy.sql.operators import contains
 
-from models import Email, Record, Adress, Phone, Birthday, Note, Tag
+from models import Email, Record, Adress, Phone, Birthday, Note, Tag, User
 from sqlalchemy import and_, delete
 from sqlalchemy.schema import MetaData
 from sqlalchemy import or_
@@ -152,13 +152,11 @@ def add_email_DB(name, email):
     db_session.commit()
     db_session.close()
 
-
 def change_email_DB(name, new_email):
     email1 = db_session.query(Email).filter(Email.rec_id == str(db_session.query(Record.id).filter(Record.name == name).first()[0]))
     email1.update({'email_name': new_email})
     db_session.commit()
     db_session.close()
-
 
 def add_adress_DB(name, adress):
     adress1 = Adress(adress_name=adress, rec_id=str(db_session.query(Record.id).filter(Record.name == name).first()[0]))
