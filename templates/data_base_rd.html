@@ -21,15 +21,13 @@
       </nav>
 
 
-      <h3><u> List of existed records extracted from DB: </u></h3>
-
-
+      <h3><u> List of existed Records extracted from DB  for <mark> User: {{user_name}} </mark> </u></h3>
 
       {% for item in record_list%}
 
           <ul>
               <li>
-                  <h6 style="line-height:0%"> Record # {{item.record_id}}. <mark>{{item.name}}</mark>  </h6>
+                  <h6 style="line-height:0%"> Record:   <mark>{{item.name}}</mark>  </h6>
                   <h7 style="line-height:0%"> <u>Phones</u> : </h7>
                   {% for phone in item.phone%}
                       <ul>
@@ -62,10 +60,8 @@
                            </li>
                        </ul>
                   {% endfor %}
-
               </li>
           </ul>
-
       {% endfor %}
     </main>
   </body>

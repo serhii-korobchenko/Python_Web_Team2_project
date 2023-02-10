@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bda87bcd-fa05-4b7f-8d8f-92296b476df3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/templates/bot.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB_handlers_cli_bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB_handlers_cli_bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Pekemons_IT_CLI_bot_with_SQLite.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pekemons_IT_CLI_bot_with_SQLite.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app_flask.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_flask.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli_bot.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/bot1.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bot1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/data_base_nt.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/data_base_nt.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/data_base_rd.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/data_base_rd.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,9 +118,9 @@
       <list>
         <item itemvalue="Python.app_flask" />
         <item itemvalue="Python.models" />
-        <item itemvalue="Python.env" />
         <item itemvalue="Python.app_flask" />
         <item itemvalue="Python.env" />
+        <item itemvalue="Python.app_flask" />
       </list>
     </recent_temporary>
   </component>

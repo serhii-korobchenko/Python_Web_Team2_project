@@ -6,7 +6,6 @@
 #                          - "hello" - answear: "How can I help you?"
 #                          - "add' name telephone number" - save new contact
 #                          - "change' name telephone number" - change telephone number for existed contact
-#                          - "phone' name" - show telephone number
 #                          - "addnum' name telephone number" - add aditional tel number for certain contact
 #                          - "del' name telephone number" - del tel number for certain contact
 #                          - "help" - bot show commands explanations
@@ -50,7 +49,6 @@ help_information = ' Bot undestands next commands:\
           * "hello" - answear: "How can I help you?"\
           * "add" name telephone number" - save new contact\
           * "change" name telephone number" - save new telephone number for existed contact\
-          * "phone" name" - show telephone number\
           * "addnum" name telephone number" - add aditional tel number for certain contact\
           * "del" name telephone number" - del tel number for certain contact\
           * "help" - bot show commands explanations\
@@ -283,8 +281,7 @@ class Record:
         # add_book.data[name].append(phone)
         add_book.data[name].record_dict['Phone'].append(phone)
 
-    def del_phone(self, name, phone):
-        add_book.data[name].record_dict['Phone'].remove(phone)
+
 
     def edit_phone(self, name, new_phone):
         add_book.data[name].record_dict['Phone'].clear()
@@ -488,30 +485,6 @@ def change_func(name, phone):  # 1&2
 
         print('Name does not exist')
         NameDoesNotExistError.status = 1
-
-@input_error
-def phone_func(name):  # 1&2
-
-    try:
-
-        if name in add_book.data:  # 2
-
-            mystring = ', '.join(
-                map(str, add_book.data[name].record_dict['Phone']))
-
-            print(f'Phone number assigned for requested name is: {mystring}')
-            flash(f'Phone number assigned for requested name is: {mystring}')
-
-        else:
-            raise NameDoesNotExistError
-
-    except NameDoesNotExistError:
-
-        print('Name does not exist.')  # - decorator
-        flash('Name does not exist.')
-        NameDoesNotExistError.status = 1
-
-
 
 
 @input_error
@@ -737,7 +710,7 @@ def main(command):
 
 
     commands_dict = {'hello': hello_func, 'add': add_func, 'change': change_func,
-                     'phone': phone_func,  'good': good_buy_func,
+                      'good': good_buy_func,
                      'close': good_buy_func, 'exit': good_buy_func, 'addnum': addnum_func, 'del': del_func,
                       'help': help_func, 'lookup': lookup_func,
                      'addnote': addnote_func, 'delnote': delnote_func,
