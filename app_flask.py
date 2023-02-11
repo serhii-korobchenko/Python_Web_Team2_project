@@ -1,6 +1,6 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash, make_response
-from models import Email, Record, Adress, Phone, Birthday, Note, Tag
+from models import Email, Record, Adress, Phone, Birthday, Note, Tag, User
 from db import db_session
 from Pekemons_IT_CLI_bot_with_SQLite import main, help_information
 from datetime import datetime
@@ -26,19 +26,21 @@ app.logger.setLevel(DEBUG)
 
 class Record_Object:
 
-    def __init__(self, name, phone, adress=None, email=None, birthday=None):
+    def __init__(self, name, phone, adress=None, email=None, birthday=None, user_id =None):
         self.name = name
         self.phone = phone
         self.adress = adress
         self.email = email
         self.birthday = birthday
+        self.user_id = user_id
 
 class Note_Object:
-    def __init__(self, note_title, note_text, created, tags=None):
+    def __init__(self, note_title, note_text, created, tags=None, user_id =None):
         self.note_title = note_title
         self.note_text = note_text
         self.created = created
         self.tags = tags
+        self.user_id = user_id
 
 
 @app.before_request
@@ -163,7 +165,7 @@ def logout():
 
 @app.route("/birthday/", methods=["GET", "POST"], strict_slashes=False)
 def add_birthday():
-
+    user_id = db_session.query(User.id).filter(User.username == list(session.values())[-1]["username"]).first()[0]
     if request.method == "GET":
         messages = request.args['messages']
         global name_up
@@ -181,7 +183,7 @@ def add_birthday():
             print(birthday_for_id)
             if not birthday_for_id:
                 birthday1 = Birthday(birthday_date=birthday_date,
-                                    rec_id=str(db_session.query(Record.id).filter(Record.name == name).first()[0]))
+                                    rec_id=str(db_session.query(Record.id).filter(Record.name == name).first()[0]), user_id=user_id)
 
                 db_session.add(birthday1)
                 db_session.commit()
@@ -200,12 +202,18 @@ def add_birthday():
 @app.route("/records_DB/", methods=["GET"], strict_slashes=False)
 def data_base_rec():
     command = None
-    records = db_session.query(Record).all()
-    phones = db_session.query(Phone).all()
+
+    user_id = db_session.query(User.id).filter(User.username == list(session.values())[-1]["username"]).first()[0]
+    user_name = list(session.values())[-1]["username"]
+    records = db_session.query(Record).filter(Record.user_id == user_id).all()
+
+
+    # phones = db_session.query(Phone).all()
 
     record_list = []
     for record in records:
         record_id = record.id
+
         phone = db_session.query(Phone.phone_name).filter(Phone.rec_id == record.id).all() if db_session.query(Phone.phone_name).filter(Phone.rec_id == record.id).all() else '*'
         adress = db_session.query(Adress.adress_name).filter(Adress.rec_id == record.id).all() if db_session.query(Adress.adress_name).filter(Adress.rec_id == record.id).all() else '*'
         email = db_session.query(Email.email_name).filter(Email.rec_id == record.id).all() if db_session.query(Email.email_name).filter(Email.rec_id == record.id).all() else '*'
@@ -215,12 +223,14 @@ def data_base_rec():
         record_list.append(item_rec)
 
     db_session.close()
-    return render_template("data_base_rd.html", records=records, phones=phones, record_list=record_list)
+    return render_template("data_base_rd.html", record_list=record_list, user_name = user_name)
 
 @app.route("/notes_DB/", methods=["GET"], strict_slashes=False)
 def data_base_notes():
 
-    notes = db_session.query(Note).all()
+    user_id = db_session.query(User.id).filter(User.username == list(session.values())[-1]["username"]).first()[0]
+    user_name = list(session.values())[-1]["username"]
+    notes = db_session.query(Note).filter(Note.user_id == user_id).all()
 
     notes_list = []
     for note in notes:
@@ -232,7 +242,7 @@ def data_base_notes():
         notes_list.append(item_note)
 
     db_session.close()
-    return render_template("data_base_nt.html",  notes_list=notes_list)
+    return render_template("data_base_nt.html",  notes_list=notes_list, user_name = user_name)
 
 
 
