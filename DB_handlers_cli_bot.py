@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, date
 from db import db_session
 
 def birthday_in_days(number_days):
-
+    user_id = db_session.query(User.id).filter(User.username == list(session.values())[-1]["username"]).first()[0]
 
     checked_datetime = datetime.now() + timedelta(days=int(number_days))
     checked_date = checked_datetime.date()
@@ -24,27 +24,30 @@ def birthday_in_days(number_days):
     birthday_list = []
     for item in list_rec_id_new:
 
-        birthday = db_session.query(Birthday.birthday_date).filter(Birthday.rec_id == item).first()
-        birthday_list.append(birthday)
+        birthday = db_session.query(Birthday.birthday_date).filter(and_(Birthday.rec_id == item, Birthday.user_id == user_id)).first()
+        if birthday:
+            birthday_list.append(birthday)
 
+    for birthday in birthday_list:
 
-    for item in birthday_list:
-
-        record_date = datetime(year=datetime.now().year, month=item[0].month,
-                            day=item[0].day)
+        record_date = datetime(year=datetime.now().year, month=birthday[0].month,
+                            day=birthday[0].day)
 
 
         if checked_date == record_date.date():
-            rec_id = db_session.query(Birthday.rec_id).filter(Birthday.birthday_date == item[0]).first()
+            rec_id = db_session.query(Birthday.rec_id).filter(Birthday.birthday_date == birthday[0]).first()
             name = db_session.query(Record.name).filter(Record.id == rec_id[0]).first()
 
             print(f' {name[0]} has birthday in {number_days} days! ')
             flash(f' {name[0]} has birthday in {number_days} days! ')
             flag_birth += 1
+        else:
+            pass
 
     if flag_birth == 0:
         print(f'No one  has birthday in {number_days} days!')
         flash(f'No one  has birthday in {number_days} days!')
+
 
     db_session.close()
 
@@ -154,10 +157,19 @@ def add_phone_DB(name, phone):
 
 
 def del_phone_DB(name, phone):
-    phone1 = db_session.query(Phone).filter(and_(Phone.phone_name == phone, Phone.rec_id==str(db_session.query(Record.id).filter(Record.name == name).first()[0])))
-    phone1.delete()
-    db_session.commit()
-    db_session.close()
+    user_id = db_session.query(User.id).filter(User.username == list(session.values())[-1]["username"]).first()[0]
+
+    phone1 = db_session.query(Phone).filter(and_(Phone.phone_name == phone, Phone.rec_id==str(db_session.query(Record.id).filter(and_(Record.name == name, Record.user_id == user_id)).first()[0]), Phone.user_id == user_id))
+
+    try:
+        if db_session.query(Phone).filter(and_(Phone.phone_name == phone, Phone.rec_id==str(db_session.query(Record.id).filter(and_(Record.name == name, Record.user_id == user_id)).first()[0]), Phone.user_id == user_id)).one():
+            phone1.delete()
+            db_session.commit()
+            db_session.close()
+    except:
+        raise ValueError
+
+
 
 
 def del_rec_DB(name):
