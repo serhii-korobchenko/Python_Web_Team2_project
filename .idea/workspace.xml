@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bda87bcd-fa05-4b7f-8d8f-92296b476df3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_02_23,_12_51_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_02_23,_12_51_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_02_23__12_51__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB_handlers_cli_bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/DB_handlers_cli_bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pekemons_IT_CLI_bot_with_SQLite.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pekemons_IT_CLI_bot_with_SQLite.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_flask.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_flask.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cli_bot.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bot1.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/bot1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/data_base_nt.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/data_base_nt.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/data_base_rd.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/data_base_rd.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cli_bot.db" beforeDir="false" afterPath="$PROJECT_DIR$/cli_bot.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,13 +33,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/serhii/Documents/GitHub/Python_Web_Team2_project&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/media/serhii/WORK/PYTHON/Python_Web_module_16"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -134,5 +130,15 @@
       <updated>1675780999882</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/DB_handlers_cli_bot.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

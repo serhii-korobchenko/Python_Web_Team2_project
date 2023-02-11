@@ -173,7 +173,8 @@ def del_phone_DB(name, phone):
 
 
 def del_rec_DB(name):
-    rec_id = str(db_session.query(Record.id).filter(Record.name == name).one()[0])
+    user_id = db_session.query(User.id).filter(User.username == list(session.values())[-1]["username"]).first()[0]
+    rec_id = str(db_session.query(Record.id).filter(and_(Record.name == name, Record.user_id==user_id)).first()[0])
     db_session.query(Phone).filter(Phone.rec_id==rec_id).delete()
     db_session.query(Email).filter(Email.rec_id == rec_id).delete()
     db_session.query(Adress).filter(Adress.rec_id == rec_id).delete()
