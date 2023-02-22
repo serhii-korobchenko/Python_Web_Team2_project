@@ -87,6 +87,7 @@ def healthcheck():
 @app.route("/", methods=['GET', 'POST'], strict_slashes=False)
 def bot():
     auth = True if 'username' in session else False
+
     command = None
 
     if request.method == "POST":
