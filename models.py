@@ -148,8 +148,18 @@ class File(Base):
 
     def __repr__(self):
         return f"File({self.id}, {self.path}, {self.size})"
+
+
+class News(Base):
+    __tablename__ = "news"
+    id = Column(Integer, primary_key=True)
+    headline = Column(String(250), nullable=False)
+    ful_ref = Column(String(250), nullable=False)
+    created = Column(DateTime, default=datetime.now())
+
 #alembic revision --autogenerate -m 'Init'
 #alembic upgrade head
+
 
 if __name__ == "__main__":
     Base.metadata.create_all(engine)

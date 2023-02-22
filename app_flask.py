@@ -1,6 +1,6 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash, make_response
-from models import Email, Record, Adress, Phone, Birthday, Note, Tag, User
+from models import Email, Record, Adress, Phone, Birthday, Note, Tag, User, News
 from db import db_session
 from Pekemons_IT_CLI_bot_with_SQLite import main, help_information
 from datetime import datetime
@@ -11,6 +11,10 @@ from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
 import uuid
 from datetime import datetime, timedelta
+
+from scraping_bbc_news import scriping_bbc
+from pandas import Timestamp
+
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_migrate import Migrate
 
@@ -27,6 +31,8 @@ app.env = "development"
 app.logger.setLevel(DEBUG)
 # db = SQLAlchemy(app)
 # migrate = Migrate(app, db)
+
+
 
 
 class Record_Object:
@@ -46,6 +52,14 @@ class Note_Object:
         self.created = created
         self.tags = tags
         self.user_id = user_id
+
+def myFunc(item):
+  res = datetime.timestamp(item.created)
+  print(res)
+
+  return res
+
+
 
 
 @app.before_request
@@ -248,6 +262,32 @@ def data_base_notes():
 
     db_session.close()
     return render_template("data_base_nt.html",  notes_list=notes_list, user_name = user_name)
+
+@app.route("/news/", methods=['GET'], strict_slashes=False)
+def news():
+
+    scriping_bbc()
+    user_id = db_session.query(User.id).filter(User.username == list(session.values())[-1]["username"]).first()[0]
+    user_name = list(session.values())[-1]["username"]
+
+    auth = True if 'username' in session else False
+    command = None
+
+    if auth:
+        values = list(session.values())
+        username_session = values[-1]["username"]
+        all_news_list = []
+        all_news = db_session.query(News).all()
+        for news in all_news:
+            all_news_list.append(news)
+
+        all_news_list.sort(reverse=True, key=myFunc)
+
+        return render_template("news.html", all_news_list=all_news_list, auth=auth, title='News',
+                               username_session=username_session)
+    else:
+        return render_template("bot1.html", help_information=help_information, auth=auth, title='Please sign in!')
+
 
 @app.route("/pictures/upload/", methods=["GET", "POST"], strict_slashes=False)
 def upload_pic():

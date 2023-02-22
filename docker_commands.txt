@@ -1,0 +1,28 @@
+docker build -t cliwebbot-image:1.0 .
+docker build -t jchild2008/cliwebbot-image:1.0 .
+docker tag <image-id> jchild2008/cliwebbot-image:1.0
+docker push jchild2008/cliwebbot-image:1.0
+
+docker run -p 5000:5000 jchild2008/cliwebbot-image:1.0
+docker inspect b4f10c241cfd7482046350ed5f3662f3dc43391395db338e4e98fd917299fc90
+docker port b4f10c241cfd7482046350ed5f3662f3dc43391395db338e4e98fd917299fc90
+docker logs <container_name>
+
+docker save -o image.tar <image_name>
+docker load -i image.tar
+
+
+
+To delete images in Docker Desktop from your hard disk, you can follow these steps:
+
+Open Docker Desktop and click on the Docker icon in the system tray (Windows) or menu bar (macOS).
+Click on "Preferences" (macOS) or "Settings" (Windows) to open the settings window.
+Click on the "Resources" tab.
+Click on "Images" in the left sidebar to see a list of all the images stored on your hard disk.
+Click on the image you want to delete and then click on the "Remove" button. You can also select multiple
+images to delete at once.
+Confirm that you want to delete the image(s) by clicking on "Yes" when prompted.
+Note that deleting images will free up disk space on your hard disk,
+but it will also remove the image(s) from Docker Desktop and any containers that depend
+on them will no longer be able to run. If you need to use an image again later,
+you'll need to download or build it again.

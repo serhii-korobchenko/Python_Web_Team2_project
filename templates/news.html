@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<main class="container">
+
+  {% if auth %}
+
+      <link
+          rel="stylesheet"
+          href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
+        />
+
+      <h2 style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"> BBC NEWS
+
+
+
+      </h2>
+
+      <nav
+        style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
+      >
+        <ul>
+          <li><a href="/" role="button">Go Home</a></li>
+        </ul>
+      </nav>
+
+
+      {% for news in all_news_list%}
+          <ul>
+              <li>
+                  <h6 style="line-height:0%"> <mark>{{news.headline}}</mark> </h6>
+                  <p>Reference: <a href="{{ news.ful_ref }}">{{ news.ful_ref }}</a></p>
+                  <p>Created:  {{news.created}}   </p>
+
+
+              </li>
+          </ul>
+      {% endfor %}
+
+  {% else %}
+
+    <div class="container">
+        <h1>{{title}}</h1>
+    </div>
+
+  {% endif %}
+
+
+</main>
+
+{% endblock %}
