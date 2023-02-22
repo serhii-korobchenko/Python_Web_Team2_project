@@ -11,8 +11,8 @@ from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
 import uuid
 from datetime import datetime, timedelta
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+# from flask_sqlalchemy import SQLAlchemy
+# from flask_migrate import Migrate
 
 from libs.validation_file import doc, picture, video, allowed_file
 from werkzeug.utils import secure_filename
