@@ -1,0 +1,45 @@
+{% extends "base1.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row mb-3">
+    <h1>Your videos</h1>
+  </div>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-info">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  <div class="row">
+    {% for vid in videos %}
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <video width="320" height="240" controls>
+          <source src="{{vid.path}}" type="video/mp4">
+<!--          <source src="movie.ogg" type="video/ogg">-->
+          Your browser does not support the video tag.
+        </video>
+        <div class="card-body">
+          <p class="card-text">{{vid.description}}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a class="btn btn-sm btn-outline-secondary" href="/videos/edit/{{vid.id}}">Edit</a>
+              <form action="/videos/delete/{{vid.id}}" method="post">
+                <button class="btn btn-sm btn-outline-secondary">Delete</button>
+              </form>
+            </div>
+            <small class="text-muted">{{vid.size}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block test %}
+<h1> Test Block </h1>
+{% endblock %}

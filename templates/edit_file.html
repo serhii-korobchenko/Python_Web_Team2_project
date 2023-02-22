@@ -1,0 +1,40 @@
+{% extends "base1.html" %}
+
+{% block content %}
+      <div class="container">
+
+
+        <div class="row justify-content-center mb-3">
+
+          <h1>Edit description your file</h1>
+        </div>
+        <div class="row justify-content-center mb-3">
+           <embed
+          src="{{file.path}}"
+          type="application/pdf"
+          frameBorder="0"
+          scrolling="auto"
+          height="100%"
+          width="100%">
+          </embed>
+        </div>
+        <div class="row justify-content-center">
+          <form class="col-sm-6" action="/file/edit/{{file.id}}" method="post">
+            <div class="form-group">
+              <input
+                class="form-control col-sm-12"
+                type="text"
+                placeholder="Description"
+                name="description"
+                value="{{file.description}}"
+              />
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary col-sm-12" type="submit">
+                Update
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base1.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row mb-3">
+    <h1>Your files</h1>
+  </div>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-info">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  <div class="row">
+    {% for file in files %}
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <embed
+          src="{{file.path}}"
+          type="application/pdf"
+          frameBorder="0"
+          scrolling="auto"
+          height="100%"
+          width="100%">
+        </embed>
+       <div class="card-body">
+          <p class="card-text">{{file.description}}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a class="btn btn-sm btn-outline-secondary" href="/file/edit/{{file.id}}">Edit</a>
+              <form action="/file/delete/{{file.id}}" method="post">
+                <button class="btn btn-sm btn-outline-secondary">Delete</button>
+              </form>
+            </div>
+            <small class="text-muted">{{file.size}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block test %}
+<h1> Test Block </h1>
+{% endblock %}

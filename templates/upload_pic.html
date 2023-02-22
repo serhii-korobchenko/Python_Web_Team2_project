@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-      <meta charset="UTF-8" />
-    <title>Upload picture</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
-    />
-</head>
-<body>
+{% extends "base1.html" %}
+
+{% block content %}
       <div class="container">
         <div class="row justify-content-center mb-3">
-          <h1>Upload your picture</h1>
+          <h1>Upload your file</h1>
         </div>
         {% with messages = get_flashed_messages() %}
           {% if messages %}
@@ -53,5 +45,7 @@
                 Upload
               </button>
             </div>
-</body>
-</html>
+          </form>
+        </div>
+      </div>
+{% endblock %}

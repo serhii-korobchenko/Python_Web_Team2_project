@@ -1,0 +1,48 @@
+{% extends "base1.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row mb-3">
+    <h1>Your documents</h1>
+  </div>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-info">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  <div class="row">
+    {% for doc in documents %}
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <embed
+          src="{{doc.path}}"
+          type="application/pdf"
+          frameBorder="0"
+          scrolling="auto"
+          height="100%"
+          width="100%">
+        </embed>
+       <div class="card-body">
+          <p class="card-text">{{doc.description}}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a class="btn btn-sm btn-outline-secondary" href="/document/edit/{{doc.id}}">Edit</a>
+              <form action="/document/delete/{{doc.id}}" method="post">
+                <button class="btn btn-sm btn-outline-secondary">Delete</button>
+              </form>
+            </div>
+            <small class="text-muted">{{doc.size}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block test %}
+<h1> Test Block </h1>
+{% endblock %}

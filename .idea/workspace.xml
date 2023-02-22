@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bda87bcd-fa05-4b7f-8d8f-92296b476df3" name="Changes" comment="Upload page is created">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app_flask.py" beforeDir="false" afterPath="$PROJECT_DIR$/app_flask.py" afterDir="false" />
-    </list>
+    <list default="true" id="bda87bcd-fa05-4b7f-8d8f-92296b476df3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,31 +11,41 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
-        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Serhii_authorization" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2LPmGbwraDnT96XjHyFVrHpm5TN" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/serhii/Documents/GitHub/Python_Web_Team2_project"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Python/goit-python/2/templates&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Python\goit-python\2\templates" />
+      <recent name="D:\Python\goit-python\2\repository" />
+      <recent name="D:\Python\goit-python\2" />
+      <recent name="C:\Users\38095\Downloads\Python_Web_Team21_project-main\libs" />
+      <recent name="C:\Users\38095\Downloads\Python_Web_Team21_project-main\templates" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.app_flask">
     <configuration name="app_flask" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Python_Web_Team2_project" />
@@ -106,8 +113,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.app_flask" />
-        <item itemvalue="Python.env" />
         <item itemvalue="Python.models" />
+        <item itemvalue="Python.app_flask" />
+        <item itemvalue="Python.env" />
         <item itemvalue="Python.app_flask" />
       </list>
     </recent_temporary>
@@ -121,29 +129,6 @@
       <option name="presentableId" value="Default" />
       <updated>1675780999882</updated>
     </task>
-    <task id="LOCAL-00001" summary="Upload page is created">
-      <created>1675969404696</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1675969404696</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Upload page is created" />
-    <option name="LAST_COMMIT_MESSAGE" value="Upload page is created" />
   </component>
 </project>
