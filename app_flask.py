@@ -21,7 +21,7 @@ from pandas import Timestamp
 from libs.validation_file import doc, picture, video, allowed_file
 from werkzeug.utils import secure_filename
 import pathlib
-from repository import users, pics, vids, docs, fls
+from repository import pics, vids, docs, fls
 
 app = Flask(__name__)
 app.secret_key = b'pythonwebteam4'
@@ -474,4 +474,4 @@ def file_delete(file_id):
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=8000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

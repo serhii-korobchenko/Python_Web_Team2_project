@@ -2,10 +2,13 @@
 from db import db_session
 import bcrypt
 import models
+import hashlib
+
 
 
 def create_user(email, password, nick):
-    hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(rounds=10))
+    #hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(rounds=10))
+    hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
     user = models.User(username=nick, email=email, hash=hash)
     db_session.add(user)
     db_session.commit()
@@ -15,9 +18,12 @@ def create_user(email, password, nick):
 
 def login(email, password):
     user = find_by_email(email)
+    psw_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+
     if not user:
         return None
-    if not bcrypt.checkpw(password.encode('utf-8'), user.hash):
+    #if not bcrypt.checkpw(password.encode('utf-8'), user.hash):
+    if not psw_hash == user.hash:
         return None
     return user
 

@@ -1,6 +1,8 @@
-docker build -t cliwebbot-image:1.0 .
+pip freeze > requirements.txt
+
+
 docker build -t jchild2008/cliwebbot-image:1.0 .
-docker tag <image-id> jchild2008/cliwebbot-image:1.0
+
 docker push jchild2008/cliwebbot-image:1.0
 
 docker run -p 5000:5000 jchild2008/cliwebbot-image:1.0
