@@ -7,7 +7,7 @@ Used Technologies: Python, Flask, bcrypt, beautifulsoup, Jinja2, marshmallow, pa
 
 
 `Installation:`
-- option 1: use code from the repository
+- option 1: use code from the repository (run app_flask)
 - option 2: use Docker image on DockerHub: docker pull jchild2008/cliwebbot-image:1.0.
 
 `Operations CLI:`
