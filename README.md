@@ -3,7 +3,7 @@
 
 `Purpose:` Assist in keeping personal information regarding contacts, notes, files and latest news (using web cli cmd)
 
-Used Technologies: Python, Flask, bcrypt, beautifulsoup, Jinja2, marshmallow, pandas, psycopg2, requests, SQLAlchemy, PostgreSQL (Elephantsql), etc.
+Used Technologies: Python, Flask, bcrypt, beautifulsoup, Jinja2, marshmallow, psycopg2, requests, SQLAlchemy, PostgreSQL (Elephantsql), etc.
 
 
 `Installation:`
