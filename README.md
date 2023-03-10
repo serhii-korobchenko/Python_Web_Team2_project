@@ -3,11 +3,11 @@
 
 `Purpose:` Assist in keeping personal information regarding contacts, notes, files and latest news (using web cli cmd)
 
-Used Technologies: Python, Flask, bcrypt, beautifulsoup, Jinja2, marshmallow, pandas, psycopg2, requests, SQLAlchemy, PostgreSQL (Elephantsql), etc.
+Used Technologies: Python, Flask, bcrypt, beautifulsoup, Jinja2, marshmallow, psycopg2, requests, SQLAlchemy, PostgreSQL (Elephantsql), etc.
 
 
 `Installation:`
-- option 1: use code from the repository
+- option 1: use code from the repository (run app_flask)
 - option 2: use Docker image on DockerHub: docker pull jchild2008/cliwebbot-image:1.0.
 
 `Operations CLI:`
