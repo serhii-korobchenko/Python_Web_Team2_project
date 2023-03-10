@@ -1,9 +1,7 @@
-
 from flask import Flask, render_template, request, redirect, url_for, session, flash, make_response
 from models import Email, Record, Adress, Phone, Birthday, Note, Tag, User, News
 from db import db_session
 from Pekemons_IT_CLI_bot_with_SQLite import main, help_information
-from datetime import datetime
 from logging import DEBUG
 import users
 from libs.validation_schemas import LoginSchema, RegistrationSchema
@@ -11,13 +9,7 @@ from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
 import uuid
 from datetime import datetime, timedelta
-
 from scraping_bbc_news import scriping_bbc
-from pandas import Timestamp
-
-# from flask_sqlalchemy import SQLAlchemy
-# from flask_migrate import Migrate
-
 from libs.validation_file import doc, picture, video, allowed_file
 from werkzeug.utils import secure_filename
 import pathlib
@@ -29,6 +21,12 @@ app.secret_key = b'pythonwebteam4'
 app.debug = True
 app.env = "development"
 app.logger.setLevel(DEBUG)
+
+
+
+
+
+
 # db = SQLAlchemy(app)
 # migrate = Migrate(app, db)
 
